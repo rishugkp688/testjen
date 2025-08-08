@@ -1,0 +1,18 @@
+services:
+  wall-app:
+    build: .
+    container_name: anonymous-wall
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    # Add the environment section
+    environment:
+      # Set the path to be inside the mounted volume
+      - DATABASE_PATH=/root/data/messages.db
+    volumes:
+      # This volume is mounted to /root/data
+      - wall-db:/root/data
+      - ./frontend:/root/frontend
+
+volumes:
+  wall-db:
