@@ -1,5 +1,5 @@
 # ----------- STAGE 1: Build Go App -----------
-FROM golang:1.21 as builder
+FROM golang:1.24.5 as builder
 
 WORKDIR /app
 
@@ -29,3 +29,4 @@ EXPOSE 8080
 
 # Run the server
 CMD ["./server"]
+
