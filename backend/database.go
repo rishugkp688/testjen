@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"os"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -9,8 +10,17 @@ import (
 var db *sql.DB
 
 func initDB() {
+	// Get the database path from an environment variable
+	dbPath := os.Getenv("DATABASE_PATH")
+
+	// If the environment variable is not set, use a default for local dev
+	if dbPath == "" {
+		dbPath = "./messages.db"
+	}
+
 	var err error
-	db, err = sql.Open("sqlite3", "./messages.db")
+	// Use the configured path to open the database
+	db, err = sql.Open("sqlite3", dbPath)
 	if err != nil {
 		panic(err)
 	}
